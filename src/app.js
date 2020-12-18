@@ -29,7 +29,7 @@ app.get('/mario/:id',async(req,res)=>{
 
 app.post("/mario",async(req,res)=>{
     const newMario=req.body;
-    if(newMario.name || number(newMario.weight)){
+    if(newMario.name || Number(newMario.weight)){
         res.status(400).send({message:"either name or weight is missing"});
     }else{
         const newMarioDocument=new marioModel(newMario);
@@ -51,7 +51,7 @@ app.patch("/mario/:id",async(req,res)=>{
                 existingMarioDoc.name=newMario.name;
             }
             if(!Number(newMario.weight)){
-                existingMarioDoc.weight=newMario.weight;
+                existingMarioDoc.weight=Number(newMario.weight);
             }
             await existingMarioDoc.save();
             res.send(existingMarioDoc);
